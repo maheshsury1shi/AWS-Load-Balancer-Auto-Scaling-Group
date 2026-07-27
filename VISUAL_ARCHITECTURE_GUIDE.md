@@ -1,33 +1,139 @@
-# 🎨 Visual Architecture Implementation Guide
+# 🎨 ASCII Architecture Implementation Guide
 
-## Architecture Diagram Overview
+## Complete System Architecture
 
-The project includes a comprehensive visual architecture diagram that illustrates the complete flow of the AWS Load Balancer & Auto Scaling Group system. This document describes how the visual architecture maps to the implemented infrastructure.
-
----
-
-## 📸 Architecture Diagram Details
-
-**File:** `architecture images/Architecture-Diagram-Complete-Flow.png`
-
-**Diagram Shows 10 Key Layers:**
-
-### Layer 1: INTERNET
-- **Component:** Internet Cloud
-- **Represents:** External network traffic
-- **Function:** Entry point for user requests
-- **Implementation Status:** ✅ Active
-
-### Layer 2: Users
-- **Component:** User Box
-- **Represents:** End users accessing the application
-- **Function:** Source of HTTP traffic
-- **Connection:** Via public internet to ALB
-- **Implementation Status:** ✅ Accessible
+The following comprehensive ASCII diagram illustrates the complete flow of the AWS Load Balancer & Auto Scaling Group system with all 10 layers.
 
 ---
 
-### Layer 3: Application Load Balancer (ALB)
+## 📐 Complete Architecture Diagram (ASCII Format)
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              🌐 INTERNET                                    │
+│                         (External Users/Requests)                           │
+└──────────────────────────────────┬──────────────────────────────────────────┘
+                                   │
+                                   │ HTTP:80 Requests
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │   📊 APPLICATION LOAD       │
+                    │     BALANCER (ALB)          │
+                    │  ✓ Name: web-ASG            │
+                    │  ✓ Status: Active           │
+                    │  ✓ Internet-Facing          │
+                    │  ✓ Multi-AZ Distribution    │
+                    │  ✓ Listener: HTTP:80        │
+                    └──────────────┬──────────────┘
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │    🏥 HEALTH CHECKS         │
+                    │  ✓ Interval: 30 seconds     │
+                    │  ✓ Matcher: HTTP 200-299    │
+                    │  ✓ Healthy Threshold: 2     │
+                    │  ✓ Unhealthy Threshold: 2   │
+                    │  ✓ Auto Remove Unhealthy    │
+                    └──────────────┬──────────────┘
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │    🎯 TARGET GROUP          │
+                    │     (Web-TG)                │
+                    │  ✓ Protocol: HTTP:80        │
+                    │  ✓ Port: 80                 │
+                    │  ✓ 2/2 Instances Healthy    │
+                    │  ✓ Connection Drain: 300s   │
+                    └──────────────┬──────────────┘
+                                   │
+                 ┌─────────────────┴─────────────────┐
+                 │                                   │
+    ┌────────────▼───────────────┐    ┌────────────▼───────────────┐
+    │  💻 EC2 INSTANCE #1        │    │  💻 EC2 INSTANCE #2        │
+    ├────────────────────────────┤    ├────────────────────────────┤
+    │ Zone: us-east-1a           │    │ Zone: us-east-1b           │
+    │ Type: t3.micro             │    │ Type: t3.micro             │
+    │ OS: Ubuntu Linux           │    │ OS: Ubuntu Linux           │
+    │ Web Server: Apache2        │    │ Web Server: Apache2        │
+    │ Port: 80 (HTTP)            │    │ Port: 80 (HTTP)            │
+    │ Status: Running            │    │ Status: Running            │
+    │ Health: ✅ Healthy          │    │ Health: ✅ Healthy          │
+    │ CPU: 2-4% average          │    │ CPU: 2-4% average          │
+    │ Memory: ~8.8M peak         │    │ Memory: ~8.8M peak         │
+    │ Security Group: Web-SG-ASG │    │ Security Group: Web-SG-ASG │
+    │ Key Pair: awsEC2           │    │ Key Pair: awsEC2           │
+    └────────────┬───────────────┘    └────────────┬───────────────┘
+                 │                                   │
+                 └─────────────────┬─────────────────┘
+                                   │
+                    ┌──────────────▼──────────────┐
+                    │  📦 AUTO SCALING GROUP      │
+                    │   (Apache-ASG)              │
+                    ├─────────────────────────────┤
+                    │  Desired Capacity: 2        │
+                    │  Min Size: 2 instances      │
+                    │  Max Size: 4 instances      │
+                    │  Health Check Type: ELB     │
+                    │  Health Check Grace: 300s   │
+                    │  Multi-AZ Distribution      │
+                    │  Status: At Capacity ✅      │
+                    └──────────────┬──────────────┘
+                                   │
+                 ┌─────────────────┴─────────────────┐
+                 │                                   │
+    ┌────────────▼───────────────┐    ┌────────────▼───────────────┐
+    │  🎨 LAUNCH TEMPLATE        │    │  📸 CONNECTION DRAINING    │
+    │   (Apache-Template)        │    │                            │
+    ├────────────────────────────┤    ├────────────────────────────┤
+    │ Template ID: lt-035c3ad... │    │ Timeout: 300 seconds       │
+    │ AMI: Apache-Web-AMI        │    │ Status: Enabled ✅          │
+    │ AMI ID: ami-08ab70fa8442.. │    │ New Requests: Redirected   │
+    │ Instance Type: t3.micro    │    │ Active Connections: OK     │
+    │ Key Pair: awsEC2           │    │ Graceful Shutdown: Yes     │
+    │ Security Group: Web-SG-ASG │    │ Zero-Downtime Deploy: ✅   │
+    │ User Data: Enabled         │    │                            │
+    │ Status: Active ✅           │    │                            │
+    └────────────┬───────────────┘    └────────────────────────────┘
+                 │
+    ┌────────────▼───────────────────────────────────┐
+    │  📊 CLOUDWATCH MONITORING                      │
+    ├────────────────────────────────────────────────┤
+    │  Namespace: AWS/EC2                            │
+    │  Metric: CPUUtilization                        │
+    │  Period: 60 seconds                            │
+    │  Statistic: Average                            │
+    │  Current: 2-4% (Idle)                          │
+    │  Peak: 4.98%                                   │
+    │  Status: Collecting ✅                         │
+    └────────────┬───────────────────────────────────┘
+                 │
+    ┌────────────▼───────────────────────────────────┐
+    │  🔄 SCALING POLICY (CPU-Target-Tracking)       │
+    ├────────────────────────────────────────────────┤
+    │  Policy Type: Target Tracking Scaling          │
+    │  Metric: Average CPU Utilization               │
+    │  Target Value: 50%                             │
+    │  Status: Enabled ✅                            │
+    │                                                 │
+    │  ┌──────────────────────────────────────────┐  │
+    │  │  SCALE OUT CONDITIONS (CPU > 50%)        │  │
+    │  │  ✓ Action: Launch new instance            │  │
+    │  │  ✓ Warmup: 300 seconds                    │  │
+    │  │  ✓ Cooldown: 60 seconds                   │  │
+    │  │  ✓ Max added: 1 instance at a time        │  │
+    │  └──────────────────────────────────────────┘  │
+    │                                                 │
+    │  ┌──────────────────────────────────────────┐  │
+    │  │  SCALE IN CONDITIONS (CPU < 50%)         │  │
+    │  │  ✓ Action: Terminate instance             │  │
+    │  │  ✓ Cooldown: 300 seconds (5 minutes)     │  │
+    │  │  ✓ Grace Period: 300 seconds              │  │
+    │  │  ✓ Min instances: 2 (never below)        │  │
+    │  └──────────────────────────────────────────┘  │
+    └────────────────────────────────────────────────┘
+```
+
+---
+
+## 🎯 10-Layer Architecture Breakdown
 - **Component:** ALB Box in diagram
 - **Name:** `web-ASG`
 - **DNS:** `web-asg-1392539259.us-east-1.elb.amazonaws.com`
