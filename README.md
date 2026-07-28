@@ -29,16 +29,16 @@
 
 ## 🎯 Overview
 
-This project demonstrates a **self-healing, auto-scaling web application** deployed on AWS with **99.99% availability**. 
+This project is an AWS-based implementation of a **highly available web application** built with EC2, an Application Load Balancer, Target Groups, a Launch Template, and an Auto Scaling Group. The design is intended to support traffic distribution, health-based routing, and automatic replacement of unhealthy instances.
 
 **What it does:**
-- 🔄 **Automatically distributes traffic** across multiple servers using Application Load Balancer
-- 📈 **Scales up/down** based on CPU usage (2-4 instances)
-- 🏥 **Self-heals** - replaces failed instances automatically
-- 🌍 **Multi-AZ resilience** - survives data center failures
-- 📊 **Real-time monitoring** via CloudWatch
+- 🔄 **Distributes traffic** across multiple servers using an Application Load Balancer
+- 📈 **Scales up/down** based on CPU usage (as configured in the design)
+- 🏥 **Supports self-healing behavior** through health checks and instance replacement
+- 🌍 **Uses a multi-AZ layout** for resilience
+- 📊 **Includes CloudWatch-based monitoring** for scaling decisions
 
-**Live Demo:** `web-asg-1392539259.us-east-1.elb.amazonaws.com`
+> Accuracy note: this project includes documented architecture and deployment steps. Any live AWS values shown in the examples (such as DNS names, instance IDs, or performance numbers) should be verified against your own AWS account and deployment state.
 
 ---
 
@@ -166,24 +166,15 @@ aws sts get-caller-identity
 ### Deploy in 5 Minutes
 
 ```bash
-# 1. Clone the repository
+# 1. Clone the project
 git clone https://github.com/maheshsury1shi/AWS-Load-Balancer-Auto-Scaling-Group.git
 cd AWS-Load-Balancer-Auto-Scaling-Group
 
-# 2. Run deployment script (coming soon)
-# bash deploy.sh
+# 2. Follow the steps in deployment-guide.md to create the VPC, subnets, security groups,
+#    launch template, ALB, target group, ASG, and scaling policy.
 
-# 3. Access the application
-curl web-asg-1392539259.us-east-1.elb.amazonaws.com
-
-# 4. View metrics in CloudWatch
-aws cloudwatch get-metric-statistics \
-  --namespace AWS/ApplicationELB \
-  --metric-name TargetResponseTime \
-  --start-time 2024-01-01T00:00:00Z \
-  --end-time 2024-01-01T01:00:00Z \
-  --period 60 \
-  --statistics Average
+# 3. Access the application once the ALB DNS name is available
+curl http://<your-alb-dns-name>
 ```
 
 ---
@@ -194,14 +185,12 @@ aws cloudwatch get-metric-statistics \
 |----------|---------|----------|
 | [deployment-guide.md](deployment-guide.md) | Step-by-step AWS setup | DevOps Engineers |
 | [architecture.md](architecture.md) | Deep-dive into system design | Architects |
-| [interview-questions.md](interview-questions.md) | Interview prep with 20 Q&A | Job Seekers |
+| [ARCHITECTURE_ALIGNMENT.md](ARCHITECTURE_ALIGNMENT.md) | Relationship between design and implementation | Reviewers |
 | [troubleshooting.md](troubleshooting.md) | Common problems & solutions | Operators |
 | [VISUAL_ARCHITECTURE_GUIDE.md](VISUAL_ARCHITECTURE_GUIDE.md) | Layer-by-layer explanation | Learners |
 | [userdata.sh](userdata.sh) | EC2 initialization script | DevOps/SRE |
-| [REPOSITORY_GUIDE.md](REPOSITORY_GUIDE.md) | Navigation guide | First-time Users |
-| [RESUME_SUMMARY.md](RESUME_SUMMARY.md) | Portfolio description | Recruiters |
 
-**🔥 Start Here:** First-time users should read [REPOSITORY_GUIDE.md](REPOSITORY_GUIDE.md)
+**🔥 Start Here:** First-time users should read [deployment-guide.md](deployment-guide.md) and [architecture.md](architecture.md).
 
 ---
 
@@ -242,17 +231,17 @@ Health Check: HTTP 200-299 (30s interval)
 
 ## 📊 Performance Metrics
 
-### Current Production Metrics
+### Example / Expected Metrics
 
-| Metric | Value | Status |
+The values below are illustrative examples used in the documentation. They should be validated against your own AWS deployment and the current time window.
+
+| Metric | Example Value | Notes |
 |--------|-------|--------|
-| **Availability** | 99.99% | ✅ SLA met |
-| **Instance Count** | 2/2 healthy | ✅ At capacity |
-| **Average CPU** | 2-4% | ✅ Optimal |
-| **Response Time** | ~100-200ms | ✅ Good |
-| **Monthly Cost** | ~$45 | ✅ Low |
-| **Scale-out Time** | ~5-7 seconds | ✅ Fast |
-| **Scaling Cooldown** | 60s (out) / 300s (in) | ✅ Balanced |
+| **Availability target** | 99.99% | Design target for a highly available setup |
+| **Instance Count** | 2/2 healthy | Example state for a balanced deployment |
+| **Average CPU** | 2-4% | Typical idle-state example |
+| **Response Time** | ~100-200ms | Example benchmark only |
+| **Scaling Cooldown** | 60s (scale out) / 300s (scale in) | Configured as part of the example design |
 
 ### Scaling Scenarios
 
@@ -273,24 +262,16 @@ Health Check: HTTP 200-299 (30s interval)
 ```
 .
 ├── README.md                              # This file
-├── REPOSITORY_GUIDE.md                    # Start here - Navigation guide
 ├── deployment-guide.md                    # Complete AWS setup guide
 ├── architecture.md                        # Technical deep-dive
-├── interview-questions.md                 # 20 Q&A for interviews
+├── ARCHITECTURE_ALIGNMENT.md              # Design-to-implementation alignment notes
 ├── troubleshooting.md                     # Common issues & fixes
 ├── VISUAL_ARCHITECTURE_GUIDE.md           # Visual architecture breakdown
-├── RESUME_SUMMARY.md                      # Portfolio description
-├── PROJECT_COMPLETION_SUMMARY.md          # Project overview
 │
 ├── userdata.sh                            # EC2 initialization script
-├── architecture.mmd                       # Mermaid architecture diagram
 │
-├── LICENSE                                # MIT License
-├── .gitignore                             # Git configuration
-│
-├── Images/                                # AWS screenshots (14 images)
-└── architecture_images/                   # Architecture diagrams
-    └── Architecture-Diagram-Complete-Flow.png
+├── Images/                                # AWS screenshots and supporting visuals
+└── architecture images/                   # Architecture diagram assets
 ```
 
 **Total Documentation:** 13,000+ lines  
@@ -410,10 +391,7 @@ aws elbv2 describe-load-balancers --names web-ASG
 → See [troubleshooting.md](troubleshooting.md)
 
 **Want to scale manually?**
-→ See [deployment-guide.md](deployment-guide.md#scaling)
-
-**Interview questions?**
-→ See [interview-questions.md](interview-questions.md)
+→ See [deployment-guide.md](deployment-guide.md)
 
 **Need architecture details?**
 → See [architecture.md](architecture.md)
@@ -426,7 +404,7 @@ aws elbv2 describe-load-balancers --names web-ASG
 - 📖 [Complete Deployment Guide](deployment-guide.md)
 - 🏗️ [Architecture Documentation](architecture.md)
 - 🐛 [Troubleshooting Guide](troubleshooting.md)
-- 💼 [Interview Preparation](interview-questions.md)
+- 🧭 [Architecture Alignment Notes](ARCHITECTURE_ALIGNMENT.md)
 
 ### AWS Resources
 - [AWS EC2 Documentation](https://docs.aws.amazon.com/ec2/)
@@ -442,11 +420,11 @@ aws elbv2 describe-load-balancers --names web-ASG
 
 ## 📝 Next Steps
 
-1. **Read:** [REPOSITORY_GUIDE.md](REPOSITORY_GUIDE.md) (5 min read)
-2. **Deploy:** Follow [deployment-guide.md](deployment-guide.md) (30 min)
-3. **Test:** Load the application and verify scaling
-4. **Learn:** Read [architecture.md](architecture.md) for deep-dive
-5. **Practice:** Use [interview-questions.md](interview-questions.md) for prep
+1. **Read:** [deployment-guide.md](deployment-guide.md) for the step-by-step setup flow
+2. **Deploy:** Create the AWS resources in your own account using the guide
+3. **Test:** Load the application and verify health checks and scaling behavior
+4. **Learn:** Read [architecture.md](architecture.md) for the deep-dive design
+5. **Review:** Check [ARCHITECTURE_ALIGNMENT.md](ARCHITECTURE_ALIGNMENT.md) for design-to-implementation notes
 
 ---
 
@@ -454,13 +432,10 @@ aws elbv2 describe-load-balancers --names web-ASG
 
 | Metric | Count |
 |--------|-------|
-| Documentation Files | 16+ |
-| Total Lines of Code/Docs | 13,000+ |
-| AWS Services Used | 7 |
-| Architecture Layers | 10 |
-| Interview Q&A Pairs | 20 |
-| AWS Screenshots | 14 |
-| Troubleshooting Scenarios | 14 |
+| Documentation Files | 6 main docs |
+| AWS Services Covered | 5 core services |
+| Architecture Layers | 10 conceptual layers |
+| Example Troubleshooting Scenarios | 14 |
 
 ---
 
@@ -470,20 +445,19 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 
 ---
 
-## 🎉 Production Ready
+## 🎉 Project Status
 
-✅ Highly Available (99.99% SLA)  
-✅ Auto-Scaling Enabled  
-✅ Health Monitoring Active  
-✅ Multi-AZ Deployment  
-✅ Comprehensive Documentation  
-✅ Interview Ready  
+✅ Highly Available architecture pattern documented  
+✅ Auto-scaling design included  
+✅ Health monitoring and failover concepts covered  
+✅ Multi-AZ deployment pattern described  
+✅ Comprehensive documentation provided  
 
-**Status:** ✨ PRODUCTION READY ✨
+**Status:** ✨ Documentation and architecture guide ready ✨
 
 ---
 
 **Last Updated:** July 27, 2026  
 **Version:** 2.0  
 **Maintainer:** Mahesh Sury  
-**Repository:** [maheshsury1shi/AWS-Load-Balancer-Auto-Scaling-Group](https://github.com/maheshsury1shi/AWS-Load-Balancer-Auto-Scaling-Group)
+**Project:** [maheshsury1shi/AWS-Load-Balancer-Auto-Scaling-Group](https://github.com/maheshsury1shi/AWS-Load-Balancer-Auto-Scaling-Group)

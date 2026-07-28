@@ -1,5 +1,7 @@
 # AWS Architecture Deep Dive: ALB + ASG for High Availability
 
+> This document describes the architecture and configuration pattern used in this project. The examples reflect a documented deployment design and should be verified against your own AWS environment before treating them as live production values.
+
 ## Table of Contents
 1. [Architecture Overview](#architecture-overview)
 2. [Component Details](#component-details)

@@ -10,33 +10,18 @@
 
 ## Quick Start (10 Minutes)
 
-If you just want to deploy quickly without understanding every step:
+This project includes documentation and a user-data script, but not a full automated deployment script. The quickest path is to follow the AWS CLI steps in the sections below.
 
 ```bash
-# 1. Clone this repository
+# 1. Clone this project
 git clone https://github.com/your-username/AWS-Load-Balancer-Auto-Scaling-Group.git
 cd AWS-Load-Balancer-Auto-Scaling-Group
 
-# 2. Create VPC and Subnets
-bash scripts/01-create-vpc.sh
+# 2. Follow the AWS CLI steps below to create the VPC, subnets, security groups,
+#    launch template, ALB, target group, ASG, and scaling policy.
 
-# 3. Create Security Groups
-bash scripts/02-create-security-groups.sh
-
-# 4. Create Launch Template
-bash scripts/03-create-launch-template.sh
-
-# 5. Create ALB and Target Group
-bash scripts/04-create-alb.sh
-
-# 6. Create Auto Scaling Group
-bash scripts/05-create-asg.sh
-
-# 7. Create Scaling Policy
-bash scripts/06-create-scaling-policy.sh
-
-# 8. Test Application
-open http://web-asg-XXXXX.us-east-1.elb.amazonaws.com
+# 3. Test the application once the ALB DNS name is available.
+open http://<your-alb-dns-name>
 ```
 
 ---
@@ -505,7 +490,7 @@ aws autoscaling describe-scaling-activities \
 
 **Next Steps:**
 - Read [architecture.md](./architecture.md) to understand the design
-- Review [interview-questions.md](./interview-questions.md) for technical depth
+- Review [ARCHITECTURE_ALIGNMENT.md](./ARCHITECTURE_ALIGNMENT.md) for implementation notes
 - Check [troubleshooting.md](./troubleshooting.md) for common issues
 
 ---
