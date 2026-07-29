@@ -16,13 +16,12 @@ echo "=========================================="
 
 # 1. Update system packages
 echo "[STEP 1] Updating system packages..."
+export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get upgrade -y
+apt-get install -y apache2 curl apache2-utils
 
 # 2. Install Apache2 web server
 echo "[STEP 2] Installing Apache2..."
-apt-get install -y apache2
-apt-get install -y apache2-utils  # For benchmarking
 
 # 3. Enable Apache modules for better performance
 echo "[STEP 3] Enabling Apache modules..."
