@@ -28,7 +28,7 @@ A production-style AWS architecture project demonstrating how to build a resilie
   - [⚠️ Challenges \& Solutions](#️-challenges--solutions)
   - [🎓 Learning Outcomes](#-learning-outcomes)
   - [🔮 Future Enhancements](#-future-enhancements)
-  - [👤 Author](#-author)
+- [Author](#author)
   - [📄 License](#-license)
 
 ## 🧭 Project Overview
@@ -267,9 +267,13 @@ The repository includes real AWS console screenshots that illustrate the deploym
 - Add CloudWatch alarms and SNS notifications
 - Extend with CI/CD automation and infrastructure as code
 
-## 👤 Author
+# Author
 
-Mahesh Suryawanshi
+Mahesh Suryawanshi 
+
+https://www.linkedin.com/in/maheshsury1shi/
+
+maheshsury1shi@gmail.com
 
 ## 📄 License
 
