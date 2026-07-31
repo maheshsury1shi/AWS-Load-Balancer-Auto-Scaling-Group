@@ -32,12 +32,28 @@ a2enmod deflate
 # 4. Create custom HTML page with instance metadata
 echo "[STEP 4] Creating custom HTML page..."
 
-# Get instance metadata
-INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
-AVAILABILITY_ZONE=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone)
-PRIVATE_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
-AWS_REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/region)
-INSTANCE_TYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
+# Get instance metadata. Support both IMDSv2 and instances that still allow IMDSv1.
+METADATA_URL="http://169.254.169.254/latest/meta-data"
+METADATA_TOKEN=$(curl -fsS --max-time 5 -X PUT \
+    -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" \
+    http://169.254.169.254/latest/api/token || true)
+
+metadata_get() {
+    local path="$1"
+
+    if [ -n "$METADATA_TOKEN" ]; then
+        curl -fsS --max-time 5 -H "X-aws-ec2-metadata-token: $METADATA_TOKEN" \
+            "$METADATA_URL/$path" || printf 'unavailable'
+    else
+        curl -fsS --max-time 5 "$METADATA_URL/$path" || printf 'unavailable'
+    fi
+}
+
+INSTANCE_ID=$(metadata_get instance-id)
+AVAILABILITY_ZONE=$(metadata_get placement/availability-zone)
+PRIVATE_IP=$(metadata_get local-ipv4)
+AWS_REGION=$(metadata_get placement/region)
+INSTANCE_TYPE=$(metadata_get instance-type)
 LAUNCH_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
 # Create the HTML file
@@ -290,9 +306,10 @@ cat > /etc/apache2/mods-enabled/deflate.conf << 'APACHE_CONFIG'
 </IfModule>
 APACHE_CONFIG
 
-# Set keep-alive timeout
-sed -i 's/KeepAliveTimeout.*/KeepAliveTimeout 5/' /etc/apache2/apache2.conf
-sed -i 's/KeepAlive.*/KeepAlive On/' /etc/apache2/apache2.conf
+# Set keep-alive and timeout without allowing the KeepAlive rule to match
+# KeepAliveTimeout.
+sed -i -E 's/^[[:space:]]*KeepAliveTimeout[[:space:]].*/KeepAliveTimeout 5/' /etc/apache2/apache2.conf
+sed -i -E 's/^[[:space:]]*KeepAlive[[:space:]]+(On|Off).*/KeepAlive On/' /etc/apache2/apache2.conf
 
 # 6. Create a health check endpoint
 echo "[STEP 6] Creating health check endpoint..."
