@@ -27,8 +27,7 @@ A production-style AWS architecture project demonstrating how to build a resilie
   - [📸 Screenshots](#-screenshots)
   - [⚠️ Challenges \& Solutions](#️-challenges--solutions)
   - [🎓 Learning Outcomes](#-learning-outcomes)
-  - [🔮 Future Enhancements](#-future-enhancements)
-- [Author](#author)
+  - [Author](#author)
   - [📄 License](#-license)
 
 ## 🧭 Project Overview
@@ -259,13 +258,6 @@ The repository includes real AWS console screenshots that illustrate the deploym
 - Practical exposure to load balancing and fault tolerance
 - Improved ability to explain cloud architecture in interviews
 - Better appreciation of monitoring and scaling strategies
-
-## 🔮 Future Enhancements
-
-- Add Terraform or CloudFormation templates
-- Include IAM role design and security hardening
-- Add CloudWatch alarms and SNS notifications
-- Extend with CI/CD automation and infrastructure as code
 
 # Author
 
