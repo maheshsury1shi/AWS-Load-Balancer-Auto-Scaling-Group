@@ -9,31 +9,28 @@ A production-style AWS architecture project demonstrating how to build a resilie
 
 ## 📑 Table of Contents
 
-  - [🧭 Project Overview](#-project-overview)
-  - [🎯 Problem Statement](#-problem-statement)
-  - [🛠️ Solution Overview](#️-solution-overview)
-  - [🏗️ Architecture Diagram](#️-architecture-diagram)
+  - [Project Overview](#-project-overview)
+  - [Problem Statement](#-problem-statement)
+  - [Solution Overview](#️-solution-overview)
+  - [Architecture Diagram](#️-architecture-diagram)
     - [ASCII Diagram](#ascii-diagram)
     - [Mermaid Diagram](#mermaid-diagram)
-  - [☁️ AWS Services Used](#️-aws-services-used)
-  - [✨ Key Features](#-key-features)
-  - [🧩 Architecture Components](#-architecture-components)
-  - [🔄 Project Workflow](#-project-workflow)
-  - [🚀 Deployment Steps](#-deployment-steps)
-  - [📁 Project Structure](#-project-structure)
-  - [🧪 Testing \& Validation](#-testing--validation)
-  - [📸 Screenshots](#-screenshots)
-  - [⚠️ Challenges \& Solutions](#️-challenges--solutions)
-  - [🎓 Learning Outcomes](#-learning-outcomes)
+  - [AWS Services Used](#️-aws-services-used)
+  - [Key Features](#-key-features)
+  - [Architecture Components](#-architecture-components)
+  - [Project Workflow](#-project-workflow)
+  - [Deployment Steps](#-deployment-steps)
+  - [Project Structure](#-project-structure)
+  - [Testing \& Validation](#-testing--validation)
+  - [Screenshots](#-screenshots)
+  - [Challenges \& Solutions](#️-challenges--solutions)
+  - [Learning Outcomes](#-learning-outcomes)
   - [Author](#author)
-  - [📄 License](#-license)
+  - [License](#-license)
 
 ## 🧭 Project Overview
 
 This repository showcases an AWS-based web architecture designed for availability, scalability, and fault tolerance. The solution uses an internet-facing Application Load Balancer to distribute traffic across healthy EC2 instances hosted in multiple Availability Zones.
-
-> [!NOTE]
-> This project is ideal for recruiters, hiring managers, and interview discussions because it demonstrates real-world cloud design thinking around resilience, scalability, and operational reliability.
 
 ## 🎯 Problem Statement
 
