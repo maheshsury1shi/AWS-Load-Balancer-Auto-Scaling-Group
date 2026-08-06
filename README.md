@@ -1,4 +1,4 @@
-🚀 AWS Load Balancer & Auto Scaling Group | High Availability on AWS
+## 🚀 AWS Load Balancer & Auto Scaling Group | High Availability on AWS
 
 Designed and deployed a production-style AWS architecture demonstrating High Availability, Fault Tolerance, and Auto Scaling using Amazon EC2, Application Load Balancer (ALB), Auto Scaling Group (ASG), Target Groups, Launch Templates, and Amazon CloudWatch. The solution automatically distributes incoming traffic, monitors application health, replaces unhealthy instances, and dynamically scales infrastructure based on CPU utilization.
 
@@ -11,7 +11,6 @@ Designed and deployed a production-style AWS architecture demonstrating High Ava
 
   - [Project Overview](#-project-overview)
   - [Problem Statement](#-problem-statement)
-  - [Problem Statement](#-problem-statement-1)
   - [Solution Overview](#️-solution-overview)
   - [Architecture Diagram](#️-architecture-diagram)
     - [ASCII Diagram](#ascii-diagram)
