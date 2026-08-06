@@ -9,8 +9,6 @@ A production-style AWS architecture project demonstrating how to build a resilie
 
 ## 📑 Table of Contents
 
-- [🚀 AWS Load Balancer \& Auto Scaling Group | High Availability on AWS](#-aws-load-balancer--auto-scaling-group--high-availability-on-aws)
-  - [📑 Table of Contents](#-table-of-contents)
   - [🧭 Project Overview](#-project-overview)
   - [🎯 Problem Statement](#-problem-statement)
   - [🛠️ Solution Overview](#️-solution-overview)
