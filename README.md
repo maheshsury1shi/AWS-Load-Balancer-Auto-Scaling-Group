@@ -1,6 +1,6 @@
 # 🚀 AWS Load Balancer & Auto Scaling Group | High Availability on AWS
 
-A production-style AWS architecture project demonstrating how to build a resilient, highly available web application using Application Load Balancer, EC2, Auto Scaling Group, Target Groups, Launch Templates, and CloudWatch.
+Designed and deployed a production-style AWS architecture demonstrating High Availability, Fault Tolerance, and Auto Scaling using Amazon EC2, Application Load Balancer (ALB), Auto Scaling Group (ASG), Target Groups, Launch Templates, and Amazon CloudWatch. The solution automatically distributes incoming traffic, monitors application health, replaces unhealthy instances, and dynamically scales infrastructure based on CPU utilization.
 
 ![AWS](https://img.shields.io/badge/AWS-Cloud%20Architecture-FF9900?logo=amazonaws)
 ![Load Balancer](https://img.shields.io/badge/Service-ALB%20%2B%20ASG-4A90E2)
@@ -9,28 +9,32 @@ A production-style AWS architecture project demonstrating how to build a resilie
 
 ## 📑 Table of Contents
 
-  - [Project Overview](#-project-overview)
-  - [Problem Statement](#-problem-statement)
-  - [Solution Overview](#️-solution-overview)
-  - [Architecture Diagram](#️-architecture-diagram)
+- [🚀 AWS Load Balancer \& Auto Scaling Group | High Availability on AWS](#-aws-load-balancer--auto-scaling-group--high-availability-on-aws)
+  - [📑 Table of Contents](#-table-of-contents)
+  - [🧭 Project Overview](#-project-overview)
+  - [🎯 Problem Statement](#-problem-statement)
+  - [🎯 Problem Statement](#-problem-statement-1)
+  - [🎯 Problem Statement](#-problem-statement-2)
+  - [🛠️ Solution Overview](#️-solution-overview)
+  - [🏗️ Architecture Diagram](#️-architecture-diagram)
     - [ASCII Diagram](#ascii-diagram)
     - [Mermaid Diagram](#mermaid-diagram)
-  - [AWS Services Used](#️-aws-services-used)
-  - [Key Features](#-key-features)
-  - [Architecture Components](#-architecture-components)
-  - [Project Workflow](#-project-workflow)
-  - [Deployment Steps](#-deployment-steps)
-  - [Project Structure](#-project-structure)
-  - [Testing \& Validation](#-testing--validation)
-  - [Screenshots](#-screenshots)
-  - [Challenges \& Solutions](#️-challenges--solutions)
-  - [Learning Outcomes](#-learning-outcomes)
-  - [Author](#author)
-  - [License](#-license)
+  - [☁️ AWS Services Used](#️-aws-services-used)
+  - [✨ Key Features](#-key-features)
+  - [🧩 Architecture Components](#-architecture-components)
+  - [🔄 Project Workflow](#-project-workflow)
+  - [🚀 Deployment Steps](#-deployment-steps)
+  - [📁 Project Structure](#-project-structure)
+  - [🧪 Testing \& Validation](#-testing--validation)
+  - [📸 Screenshots](#-screenshots)
+  - [⚠️ Challenges \& Solutions](#️-challenges--solutions)
+  - [🎓 Learning Outcomes](#-learning-outcomes)
+- [Author](#author)
+  - [📄 License](#-license)
 
 ## 🧭 Project Overview
 
-This repository showcases an AWS-based web architecture designed for availability, scalability, and fault tolerance. The solution uses an internet-facing Application Load Balancer to distribute traffic across healthy EC2 instances hosted in multiple Availability Zones.
+This repository demonstrates a production-style AWS architecture for building a highly available, scalable, and fault-tolerant web application. It leverages an internet-facing Application Load Balancer (ALB), Amazon EC2, Auto Scaling Group (ASG), Target Groups, Launch Templates, and Amazon CloudWatch to ensure intelligent traffic distribution, automated scaling, health monitoring, and continuous application availability.
 
 ## 🎯 Problem Statement
 
@@ -42,19 +46,33 @@ A single-instance web application is vulnerable to:
 - poor scalability under increasing demand.
 
 The goal is to design a solution that remains available and responsive even during load increases or EC2 failures.
+## 🎯 Problem Statement
+## 🎯 Problem Statement
+
+Traditional single-instance web applications face several challenges:
+
+- Single point of failure, resulting in application downtime if the EC2 instance becomes unavailable.
+- Limited scalability, making it difficult to handle increasing user traffic efficiently.
+- Performance degradation during traffic spikes due to limited compute resources.
+- Manual provisioning and recovery, increasing operational effort and downtime.
+- Lack of automatic health monitoring and instance replacement.
+- Reduced application availability and reliability for production workloads.
 
 ## 🛠️ Solution Overview
 
-The solution introduces a layered AWS architecture:
+This project implements a production-style AWS architecture that addresses the limitations of a traditional single-instance deployment by leveraging AWS services for high availability, scalability, and fault tolerance.
 
-- a VPC with two public subnets in separate Availability Zones,
-- an Internet Gateway and public route table to provide internet access,
-- an Application Load Balancer as the public entry point,
-- a Target Group to route traffic to healthy instances,
-- two EC2 instances deployed in separate Availability Zones,
-- an Auto Scaling Group to dynamically maintain capacity,
-- CloudWatch to monitor performance and trigger scaling actions.
-
+- Designed a highly available web application architecture across **two Availability Zones**.
+- Configured an **Application Load Balancer (ALB)** to distribute incoming traffic across multiple healthy EC2 instances.
+- Deployed web servers on **Amazon EC2** running Ubuntu and Apache HTTP Server.
+- Configured a **Target Group** with health checks to route requests only to healthy instances.
+- Created a reusable **Amazon Machine Image (AMI)** and **Launch Template** for consistent EC2 provisioning.
+- Implemented an **Auto Scaling Group (ASG)** to automatically launch, terminate, and replace EC2 instances based on demand.
+- Configured **Amazon CloudWatch** target tracking policies to automatically scale infrastructure based on CPU utilization.
+- Secured the environment using **Amazon VPC, Security Groups, and controlled network access**.
+- Validated the solution by testing **traffic distribution, health checks, automatic instance replacement, and dynamic scaling**.
+  
+  
 ## 🏗️ Architecture Diagram
 
 ### ASCII Diagram
