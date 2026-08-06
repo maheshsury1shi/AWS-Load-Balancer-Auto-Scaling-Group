@@ -63,12 +63,12 @@ This project implements a production-style AWS architecture that addresses the l
 ### ASCII Diagram
 
 ```text
-                                      Internet
-                                          │
-                                          │
-                               HTTP / HTTPS (80/443)
-                                          │
-                                          ▼
+                                   Internet
+                                      │
+                                      │ 
+                            HTTP / HTTPS (80/443)
+                                      │
+                                      ▼
                       ┌─────────────────────────────────┐
                       │  Application Load Balancer      │
                       │             (ALB)               │
