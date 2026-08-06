@@ -14,7 +14,6 @@ Designed and deployed a production-style AWS architecture demonstrating High Ava
   - [🧭 Project Overview](#-project-overview)
   - [🎯 Problem Statement](#-problem-statement)
   - [🎯 Problem Statement](#-problem-statement-1)
-  - [🎯 Problem Statement](#-problem-statement-2)
   - [🛠️ Solution Overview](#️-solution-overview)
   - [🏗️ Architecture Diagram](#️-architecture-diagram)
     - [ASCII Diagram](#ascii-diagram)
@@ -46,7 +45,7 @@ A single-instance web application is vulnerable to:
 - poor scalability under increasing demand.
 
 The goal is to design a solution that remains available and responsive even during load increases or EC2 failures.
-## 🎯 Problem Statement
+
 ## 🎯 Problem Statement
 
 Traditional single-instance web applications face several challenges:
@@ -72,7 +71,7 @@ This project implements a production-style AWS architecture that addresses the l
 - Secured the environment using **Amazon VPC, Security Groups, and controlled network access**.
 - Validated the solution by testing **traffic distribution, health checks, automatic instance replacement, and dynamic scaling**.
   
-  
+
 ## 🏗️ Architecture Diagram
 
 ### ASCII Diagram
