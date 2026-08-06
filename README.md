@@ -1,4 +1,4 @@
-# 🚀 AWS Load Balancer & Auto Scaling Group | High Availability on AWS
+🚀 AWS Load Balancer & Auto Scaling Group | High Availability on AWS
 
 Designed and deployed a production-style AWS architecture demonstrating High Availability, Fault Tolerance, and Auto Scaling using Amazon EC2, Application Load Balancer (ALB), Auto Scaling Group (ASG), Target Groups, Launch Templates, and Amazon CloudWatch. The solution automatically distributes incoming traffic, monitors application health, replaces unhealthy instances, and dynamically scales infrastructure based on CPU utilization.
 
@@ -9,42 +9,29 @@ Designed and deployed a production-style AWS architecture demonstrating High Ava
 
 ## 📑 Table of Contents
 
-- [🚀 AWS Load Balancer \& Auto Scaling Group | High Availability on AWS](#-aws-load-balancer--auto-scaling-group--high-availability-on-aws)
-  - [📑 Table of Contents](#-table-of-contents)
-  - [🧭 Project Overview](#-project-overview)
-  - [🎯 Problem Statement](#-problem-statement)
-  - [🎯 Problem Statement](#-problem-statement-1)
-  - [🛠️ Solution Overview](#️-solution-overview)
-  - [🏗️ Architecture Diagram](#️-architecture-diagram)
+  - [Project Overview](#-project-overview)
+  - [Problem Statement](#-problem-statement)
+  - [Problem Statement](#-problem-statement-1)
+  - [Solution Overview](#️-solution-overview)
+  - [Architecture Diagram](#️-architecture-diagram)
     - [ASCII Diagram](#ascii-diagram)
     - [Mermaid Diagram](#mermaid-diagram)
-  - [☁️ AWS Services Used](#️-aws-services-used)
-  - [✨ Key Features](#-key-features)
-  - [🧩 Architecture Components](#-architecture-components)
-  - [🔄 Project Workflow](#-project-workflow)
-  - [🚀 Deployment Steps](#-deployment-steps)
-  - [📁 Project Structure](#-project-structure)
-  - [🧪 Testing \& Validation](#-testing--validation)
-  - [📸 Screenshots](#-screenshots)
-  - [⚠️ Challenges \& Solutions](#️-challenges--solutions)
-  - [🎓 Learning Outcomes](#-learning-outcomes)
-- [Author](#author)
-  - [📄 License](#-license)
+  - [AWS Services Used](#️-aws-services-used)
+  - [Key Features](#-key-features)
+  - [Architecture Components](#-architecture-components)
+  - [Project Workflow](#-project-workflow)
+  - [Deployment Steps](#-deployment-steps)
+  - [Project Structure](#-project-structure)
+  - [Testing \& Validation](#-testing--validation)
+  - [Screenshots](#-screenshots)
+  - [Challenges \& Solutions](#️-challenges--solutions)
+  - [Learning Outcomes](#-learning-outcomes)
+  - [Author](#author)
+  - [License](#-license)
 
 ## 🧭 Project Overview
 
 This repository demonstrates a production-style AWS architecture for building a highly available, scalable, and fault-tolerant web application. It leverages an internet-facing Application Load Balancer (ALB), Amazon EC2, Auto Scaling Group (ASG), Target Groups, Launch Templates, and Amazon CloudWatch to ensure intelligent traffic distribution, automated scaling, health monitoring, and continuous application availability.
-
-## 🎯 Problem Statement
-
-A single-instance web application is vulnerable to:
-
-- traffic spikes and performance degradation,
-- single points of failure,
-- limited recovery during instance failures,
-- poor scalability under increasing demand.
-
-The goal is to design a solution that remains available and responsive even during load increases or EC2 failures.
 
 ## 🎯 Problem Statement
 
